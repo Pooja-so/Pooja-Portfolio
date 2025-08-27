@@ -1,3 +1,7 @@
+import { useState, useRef } from "react";
+import emailjs from "emailjs-com";
+import { cn } from "@/lib/utils";
+import { toast } from "react-toastify";
 import {
   Github,
   Linkedin,
@@ -7,9 +11,6 @@ import {
   Send,
   Twitter,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useToast } from "@/hooks/use-toast";
-import { useState, useRef } from "react";
 
 const contactInfo = [
   {
@@ -39,39 +40,47 @@ const socialLinks = [
 ];
 
 export const ContactSection = () => {
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const emailRef = useRef(null);
+
   const nameRef = useRef(null);
+  const emailRef = useRef(null);
   const messageRef = useRef(null);
 
-  function resetForm() {
-    emailRef.current.value = "";
-    nameRef.current.value = "";
-    messageRef.current.value = "";
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thanks for reaching out! I'll get back to you soon.",
-      });
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: nameRef.current.value,
+          from_email: emailRef.current.value,
+          message: messageRef.current.value,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      toast.success("Message Sent successfull. Thanks for reaching out!");
+      e.target.reset(); // clear form
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error(
+        "Failed to Send. Something went wrong. Please try again later."
+      );
+    } finally {
       setIsSubmitting(false);
-      resetForm();
-    }, 1500);
+    }
   };
 
   return (
     <section id="contact" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Get <span className="text-cyan-300">in</span>  <span className="text-primary">Touch</span>
+          Get <span className="text-cyan-300">in</span>{" "}
+          <span className="text-primary">Touch</span>
         </h2>
-        <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-lg">
+        <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-lg tracking-normal">
           I’m always open to discussing new ideas, projects, or opportunities.
           Let’s connect!
         </p>
@@ -126,7 +135,11 @@ export const ContactSection = () => {
           {/* Contact Form */}
           <div className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-8 shadow-lg">
             <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
-            <form className="space-y-5" onSubmit={handleSubmit}>
+            <form
+              className="space-y-5"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
               <input
                 ref={nameRef}
                 type="text"
@@ -151,15 +164,47 @@ export const ContactSection = () => {
                 rows={4}
                 className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none text-md"
               />
+
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "cosmic-button w-full flex items-center justify-center gap-2 cursor-pointer"
+                  "cosmic-button w-full flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 )}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                <Send size={16} />
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-20"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-90"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send
+                      size={16}
+                      className="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]"
+                    />
+                  </>
+                )}
               </button>
             </form>
           </div>
