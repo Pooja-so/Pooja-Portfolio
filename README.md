@@ -37,7 +37,7 @@ The site highlights my background, technical expertise, and the projects I’ve 
 
 ---
 
-## ✨ Features  
+## ✨ Featured Sections 
 
 - 🌑 **Dark Mode** for developer friendly view
 - 💫 **Subtle Animations** for sections and UI elements  
