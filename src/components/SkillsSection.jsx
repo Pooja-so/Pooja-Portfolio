@@ -73,7 +73,7 @@ export const SkillsSection = () => {
                 key={category}
                 className="rounded-2xl p-6 backdrop-blur-md bg-background/30 border border-border shadow-lg hover:shadow-xl transition"
               >
-                <h3 className="text-xl font-semibold mb-5 capitalize text-cyan-300 tracking-wide">
+                <h3 className="text-2xl font-bold mb-5 capitalize text-primary tracking-wide">
                   {category} 
                 </h3>
 
@@ -81,7 +81,7 @@ export const SkillsSection = () => {
                   {categorySkills.map((skill, index) => (
                     <div key={index}>
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-md font-medium">
+                        <span className="text-md font-medium tracking-wide">
                           {skill.name}
                         </span>
                         <span className="text-s text-muted-foreground">
@@ -90,7 +90,7 @@ export const SkillsSection = () => {
                       </div>
                       <div className="w-full bg-secondary/40 h-2 rounded-full overflow-hidden">
                         <div
-                          className="bg-primary h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
+                          className="bg-cyan-400 h-2 rounded-full origin-left animate-[grow_1.5s_ease-out]"
                           style={{ width: skill.level + "%" }}
                         />
                       </div>

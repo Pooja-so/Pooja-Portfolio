@@ -1,7 +1,6 @@
-import { Notebook, Layers, Code2 } from "lucide-react";
+import { Notebook, Layers, Code2, Download } from "lucide-react";
 
 export const AboutSection = () => {
-  // ✅ Array of content
   const aboutItems = [
     {
       icon: <Code2 className="h-7 w-7 text-primary mb-3" />,
@@ -36,7 +35,7 @@ export const AboutSection = () => {
           {aboutItems.map((item, idx) => (
             <div
               key={idx}
-              className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition-transform hover:bg-white/10  duration-500"
+              className="backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl p-6 shadow-lg hover:scale-[1.02] transition-transform hover:bg-white/10 duration-500"
             >
               {item.icon}
               <h4 className="font-semibold text-lg mb-2 text-cyan-300">
@@ -47,6 +46,19 @@ export const AboutSection = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Download Resume Button */}
+        <div className="text-center mt-12">
+          <a
+            href="/resume/Pooja_Singh_Resume.pdf"
+            download="Pooja_Singh_Resume.pdf"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-white font-medium shadow-lg 
+            hover:scale-105 transition-transform duration-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.6)]"
+          >
+            <Download className="w-5 h-5" />
+            Download Resume
+          </a>
         </div>
       </div>
     </section>

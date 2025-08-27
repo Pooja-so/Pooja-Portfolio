@@ -69,7 +69,7 @@ export const ContactSection = () => {
     <section id="contact" className="py-24 px-4 relative">
       <div className="container mx-auto max-w-5xl text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Get in <span className="text-primary">Touch</span>
+          Get <span className="text-cyan-300">in</span>  <span className="text-primary">Touch</span>
         </h2>
         <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-lg">
           I’m always open to discussing new ideas, projects, or opportunities.

@@ -36,7 +36,7 @@ export const HeroSection = () => {
           <a
             href="#projects"
             className="px-6 py-3 text-lg rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white font-medium shadow-lg
-    transition-transform duration-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.6)]"
+    transition-transform duration-300  hover:scale-105 hover:shadow-[0_0_15px_rgba(99,102,241,0.6)]"
           >
             Explore My Work
           </a>
