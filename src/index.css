@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ================================
+   🌟 THEME & COLORS
+================================ */
 @theme {
   --color-border: hsl(var(--border));
   --color-background: hsl(var(--background));
@@ -10,6 +13,7 @@
 
   --color-card: hsl(var(--card));
 
+  /* Animations */
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
   --animate-fade-in: fade-in 0.7s ease-out forwards;
@@ -19,15 +23,7 @@
   --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
   --animate-meteor: meteor 5s linear infinite;
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
+  /* Subtle Pulse */
   @keyframes pulse-subtle {
     0%,
     100% {
@@ -37,6 +33,8 @@
       opacity: 0.8;
     }
   }
+
+  /* Fade In */
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -47,6 +45,8 @@
       transform: translateY(0);
     }
   }
+
+  /* Meteor Trail */
   @keyframes meteor {
     0% {
       transform: rotate(215deg) translateX(0);
@@ -62,29 +62,32 @@
   }
 }
 
+/* ================================
+   🌗 LIGHT / DARK MODE COLORS
+================================ */
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 210 40% 98%; /* light blue-gray background */
+    --foreground: 222 47% 11%; /* deep navy text */
 
-    --card: 0 0% 100%;
+    --card: 0 0% 100%; /* white card */
 
-    --primary: 250 47% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 75% 55%; /* bright blue */
+    --primary-foreground: 210 40% 98%; /* white text */
 
-    --border: 214 32% 91%;
+    --border: 210 40% 85%; /* light soft border */
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    --background: 222 47% 6%; /* deep navy */
+    --foreground: 213 32% 92%; /* soft light gray */
 
-    --card: 222 47% 8%;
+    --card: 222 47% 10%; /* slightly lighter navy */
 
-    --primary: 250 65% 65%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 220 75% 55%; /* sapphire blue */
+    --primary-foreground: 210 40% 98%; /* pale white-blue */
 
-    --border: 217 33% 20%;
+    --border: 220 25% 20%; /* subtle dark border */
   }
 
   * {
@@ -96,14 +99,19 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground transition-colors duration-300 antialiased;
+    font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
   }
 }
 
+/* ================================
+   📦 UTILITIES
+================================ */
 @utility container {
   margin-inline: auto;
-  padding-inline: 2rem;
+  padding-inline: 1.5rem;
 
   @media (width >= 640px) {
     max-width: 640px;
@@ -123,8 +131,8 @@
 }
 
 @utility text-glow {
-  @apply relative;
-  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  @apply relative font-semibold;
+  text-shadow: 0 0 12px rgba(96, 165, 250, 0.6); /* blue glow */
 }
 
 @utility card-hover {
@@ -132,31 +140,66 @@
 }
 
 @utility gradient-border {
-  @apply relative rounded-md;
+  @apply relative rounded-xl;
   background: linear-gradient(to right, hsl(var(--card)), hsl(var(--card)));
   background-clip: padding-box;
   border: 1px solid transparent;
 }
 
 @utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-         transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
+  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium tracking-wide
+         transition-all duration-300 hover:shadow-[0_0_15px_rgba(59,130,246,0.6)]
          hover:scale-105 active:scale-95;
 }
 
 @utility star {
   @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 12px 3px rgba(96, 165, 250, 0.6);
 }
 
 @utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+  @apply absolute bg-linear-to-r from-sky-400 via-sky-300 to-transparent rounded-full;
+  box-shadow: 0 0 12px 6px rgba(56, 189, 248, 0.5);
 }
 
+/* ================================
+   🌍 ROOT CONTAINER
+================================ */
 #root {
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
   text-align: center;
+}
+
+/* UFO Float Animation */
+@keyframes ufo-approach {
+  0% {
+    transform: translate(-250px, -250px) scale(0.2) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-100px, -80px) scale(0.6) rotate(180deg);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translate(-30px, -20px) scale(0.95) rotate(350deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-30px, -20px) scale(0.95) rotate(360deg);
+    opacity: 1;
+  }
+}
+
+/* Explore project button in HeroSEction */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
